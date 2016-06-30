@@ -1,0 +1,75 @@
+<!--
+
+/**
+ * © Copyright IBM Corporation 2014.  
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+ */
+
+-->
+
+<project name="urbancode-deploy-slack-plugin" default="main" basedir=".">
+
+	<property name="project" value="" />
+    <property name="version" value="dev" />
+	<property name="deployPluginArchiveName" value="releases/Slack-v${version}.zip" />
+
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="scripts.dir" value="${basedir}/scripts" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="plugin.dir" value="${basedir}/plugin" />
+	<property name="license.dir" value="${basedir}/license" />
+	<target name="main" depends="clean, copyDependencies, buildZip" />
+
+	<!-- Copy in the dependencies -->
+	<target name="copyDependencies">
+
+		<!-- inputs (info, upgrade) -->
+		<copy todir="${build.dir}">
+			<fileset dir="${plugin.dir}">
+				<include name="info.xml" />
+				<include name="upgrade.xml" />
+				<include name="plugin.xml" />
+			</fileset>
+							
+			<fileset dir="${src.dir}">					
+			</fileset>
+		</copy>
+
+		<mkdir dir="${build.dir}/license"/>
+			<!-- copy license -->
+			<copy todir="${build.dir}/license">
+				<fileset dir="${license.dir}">
+					<include name="EPL.txt" />
+				</fileset>
+			</copy>
+		
+		<mkdir dir="${build.dir}/lib"/>
+					<!-- copy libs -->
+					<copy todir="${build.dir}/lib">
+						<fileset dir="${lib.dir}">
+							<include name="commons-httpclient-3.1.jar" />
+							<include name="groovy-json-2.4.0.jar" />
+							<include name="gson-2.2.4.jar" />
+							<include name="commons-codec-1.2.jar" />
+							<include name="commons-logging-1.1.3.jar" />
+						</fileset>
+					</copy>
+							
+	</target>
+
+	<!-- Build the actual zip file that gets uploaded to uDeploy -->
+	<target name="buildZip">
+		<zip destfile="${deployPluginArchiveName}" basedir="${build.dir}" update="false"/>
+	</target>
+
+	<!-- Clean up the build directory -->
+	<target name="clean">
+		<delete dir="build" />
+		<mkdir dir="build" />
+		<delete file="${deployPluginArchiveName}" />
+	</target>
+
+</project>
