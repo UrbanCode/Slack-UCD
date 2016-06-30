@@ -13,7 +13,7 @@
 
 	<property name="project" value="" />
     <property name="version" value="dev" />
-	<property name="deployPluginArchiveName" value="releases/Slack-v${version}.zip" />
+	<property name="deployPluginArchiveName" value="releases/Slack-UCD-v${version}.zip" />
 
 	<property name="src.dir" value="${basedir}/src" />
 	<property name="scripts.dir" value="${basedir}/scripts" />
