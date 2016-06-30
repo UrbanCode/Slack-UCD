@@ -3,13 +3,13 @@
   <header>
     <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="2"/>
     <description>
-       Plugin for sending Notifications to Slack.  
+       Plugin for sending notifications to Slack.  
 	</description>
     <tag>Notifications/Slack</tag>
   </header>
   <step-type name="Post Notification to Slack">
     <description>
-      Plugin for sending Notifications to Slack.
+      Send a notification to a Slack channel.
 	</description>
     <properties>
       <property name="webhook" required="true">
