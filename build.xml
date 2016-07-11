@@ -84,6 +84,8 @@
             <dependency org="org.codehaus.groovy" name="groovy-json" rev="2.4.0" transitive="false" />
             <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
             <dependency org="com.google.code.gson" name="gson" rev="2.2.4" transitive="false" />
+            <!-- http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22 -->
+            <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.0" transitive="false" />
         </ivy:cachepath>
         <ivy:retrieve />
     </target>
