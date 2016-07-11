@@ -15,17 +15,17 @@
     <property name="version" value="dev" />
 	<property name="deployPluginArchiveName" value="releases/Slack-UCD-v${version}.zip" />
 
-	<property name="src.dir" value="${basedir}/src" />
+	<property name="src.dir"     value="${basedir}/src" />
 	<property name="scripts.dir" value="${basedir}/scripts" />
-	<property name="build.dir" value="${basedir}/build" />
-	<property name="lib.dir" value="${basedir}/lib" />
-	<property name="plugin.dir" value="${basedir}/plugin" />
+	<property name="build.dir"   value="${basedir}/build" />
+	<property name="lib.dir"     value="${basedir}/lib" />
+	<property name="plugin.dir"  value="${basedir}/plugin" />
 	<property name="license.dir" value="${basedir}/license" />
 
-	<target name="main" depends="clean, resolve, copyDependencies, buildZip" />
+	<target name="main" depends="clean, resolve, build, dist" />
 
 	<!-- Copy in the dependencies -->
-	<target name="copyDependencies" depends="resolve">
+	<target name="build" depends="resolve">
 
 		<!-- inputs (info, upgrade) -->
 		<copy todir="${build.dir}">
@@ -59,7 +59,7 @@
 	</target>
 
 	<!-- Build the actual zip file that gets uploaded to uDeploy -->
-	<target name="buildZip" depends="resolve">
+	<target name="dist" depends="resolve">
 		<zip destfile="${deployPluginArchiveName}" basedir="${build.dir}" update="false"/>
 	</target>
 
