@@ -1,8 +1,8 @@
 /**
- * UrbanCode Deploy Plug-in for Slack
- *
- * This plugin posts deployment messages to slack
- * @version 1.0
+ * © Copyright IBM Corporation 2014, 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  * @author cooperc
  */
 import com.urbancode.air.AirPluginTool;
