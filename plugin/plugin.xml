@@ -3,7 +3,7 @@
   <header>
     <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="2"/>
     <description>
-       Plugin for sending notifications to Slack.  
+       Plugin for sending notifications to Slack.
 	</description>
     <tag>Notifications/Slack</tag>
   </header>
@@ -13,10 +13,10 @@
 	</description>
     <properties>
       <property name="webhook" required="true">
-        <property-ui description="URL of the webhook you have setup to accept messages into slack." label="WebHook URL" type="textBox"/>
+        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
       </property>
       <property name="channel" required="true">
-        <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent." label="Channel" type="textBox"/>
+        <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channel." label="Channel" type="textBox"/>
       </property>
       <property name="colour">
         <property-ui default-value="good" description="An optional value that can either be one of good, warning, danger, or any hex color code (eg. #439FE0)." label="Colour" type="textBox"/>
@@ -34,7 +34,7 @@
         <property-ui default-value="${p:version.name}" description="The version of the component deployed." hidden="true" label="Version" type="textBox"/>
       </property>
     </properties>
-    
+
     <post-processing><![CDATA[
         if (properties.get("exitCode") != 0) {
             properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));

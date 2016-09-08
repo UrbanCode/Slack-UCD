@@ -1,6 +1,6 @@
 /**
  * UrbanCode Deploy Plug-in for Slack
- * 
+ *
  * This plugin posts deployment messages to slack
  * @version 1.0
  * @author cooperc
@@ -89,17 +89,18 @@ try{
 	def http = new HttpClient();
 	def post = new PostMethod(webhook);
 	post.setRequestEntity(requestEntity);
-	
+
 	def status = http.executeMethod(post);
-	
+
 	if (status == 200){
 		println "Success: ${status}";
 		System.exit(0);;
 	} else {
 		println "Failure: ${status}"
 		System.exit(3);
-	}	
-} catch (Exception exception) {
-	println "ERROR setting path: ${e.message}"
+	}
+} catch (Exception e) {
+	println "[Error] Unable to set path: ${e.message}"
+    println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
 	System.exit(2)
 }
