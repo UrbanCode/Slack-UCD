@@ -17,7 +17,7 @@
   or share their use case to help grow your plugin's functionality.
   -->
 
-  <author name="Cai Cooper">
+  <author name="Cai Cooper and Tyson Lawrie">
     <organization>N/A</organization>
     <bio/>
   </author>
@@ -109,7 +109,7 @@
     <meta content="" name="keywords"/>
   </meta-html>
 
-  <release-version>2.1</release-version>
+  <release-version>3.2</release-version>
 
   <release-notes>
     <!--
@@ -135,6 +135,11 @@
 	    Community GitHub Release
         2.1 - Description Updates and Invalid Exception Variable
 	  </release-note>
-
+    <release-note plugin-version="3">
+	    Community GitHub Release
+        3.0 - New Custom Slack Step
+        3.1 - Added timestamp
+        3.2 - Removed Command Helper
+	  </release-note>
   </release-notes>
 </pluginInfo>

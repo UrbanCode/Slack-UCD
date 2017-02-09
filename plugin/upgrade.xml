@@ -10,6 +10,6 @@
   <!-- The purpose of plugin.xml is to provide upgrade paths when the plugin version is changed.
        If the upgrade paths are specified correctly, users will be upgraded to the new version
        without interruption. -->
-   <migrate to-version="2">
+   <migrate to-version="3">
    </migrate>
 </plugin-upgrade>

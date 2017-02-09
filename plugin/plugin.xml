@@ -8,7 +8,7 @@
 
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <header>
-    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="2"/>
+    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="3"/>
     <description>
        Plugin for sending notifications to Slack.
 	</description>
@@ -54,6 +54,43 @@
       <arg value="-cp"/>
       <arg path="classes:lib/commons-httpclient-3.1.jar:lib/gson-2.2.4.jar:lib/groovy-json-2.4.0.jar:lib/commons-codec-1.2.jar:lib/commons-logging-1.1.3.jar:lib/groovy-plugin-utils-1.0.jar"/>
       <arg file="postToSlack.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Post Custom Notification to Slack">
+    <description>
+      Send a notification to a Slack channel.
+	</description>
+    <properties>
+      <property name="webhook" required="true">
+        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
+      </property>
+      <property name="username">
+        <property-ui default-value="DevOps Bot" description="A custom name overriding the default defined in the webhook configuration" label="Username" type="textBox"/>
+      </property>
+      <property name="channel" required="true">
+        <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channel." label="Channel" type="textBox"/>
+      </property>
+      <property name="emoji" required="true">
+        <property-ui default-value=":thumbsup:" description="The list of emoji supported are taken from https://github.com/iamcal/emoji-data ." label="Emoji Icon" type="textBox"/>
+      </property>
+      <property name="attachment" required="true">
+        <property-ui description="The payload value for adding to the attachment" label="Attachment Payload" type="textAreaBox"/>
+      </property>
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/commons-httpclient-3.1.jar:lib/gson-2.2.4.jar:lib/groovy-json-2.4.0.jar:lib/commons-codec-1.2.jar:lib/commons-logging-1.1.3.jar:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="postToSlackCustom.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
