@@ -6,9 +6,8 @@
  * @author cooperc
  */
 import com.urbancode.air.AirPluginTool;
-
-import groovy.json.JsonBuilder
-
+import groovy.json.JsonBuilder;
+import groovy.json.JsonSlurper;
 import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.methods.PostMethod
 import org.apache.commons.httpclient.methods.StringRequestEntity
@@ -27,18 +26,11 @@ final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
-//Create Attachment JSON object
-def attachmentJson = new JsonBuilder();
-try {
-	attachmentJson slackAttachment
-	println "DEBUG:: " attachmentJson;
-	assert attachmentJson instanceof List
-} catch (Exception exception) {
-	println "ERROR:: Attachment value not JSON Array"
-	System.exit(1)
-}
+//Convert attachment input to be ArrayList for JSONBuilder
+def slurped = new JsonSlurper().parseText(slackAttachment)
+def attachmentJson = new JsonBuilder(slurped)
 
-attachmentsJson[0].ts = System.currentTimeMillis()/1000;
+attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
 
 // JSON message composition
 def json = new JsonBuilder();
@@ -49,9 +41,10 @@ try {
 		icon_emoji emoji
 		attachments attachmentJson
 	}
+	println "DEBUG:: JSON Payload"
 	println json.toPrettyString();
 } catch (Exception exception) {
-	println "ERROR setting path: ${e.message}"
+	println "ERROR:: setting path: ${e.message}"
 	System.exit(1)
 }
 
@@ -76,7 +69,7 @@ try{
 		System.exit(3);
 	}
 } catch (Exception e) {
-	println "[Error] Unable to set path: ${e.message}"
+	println "ERROR:: Unable to set path: ${e.message}"
     println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
 	System.exit(2)
 }
