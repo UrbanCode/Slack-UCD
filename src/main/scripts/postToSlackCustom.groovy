@@ -39,7 +39,7 @@ try {
 		channel slackChannel
 		username slackUsername
 		icon_emoji emoji
-		attachments attachmentJson
+		attachments attachmentJson.content
 	}
 	println "DEBUG:: JSON Payload"
 	println json.toPrettyString();
