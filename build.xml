@@ -36,7 +36,7 @@
 
 
         <property name="plugin" value="Slack-UCD" />
-        <property name="version" value="3.3" />
+        <property name="version" value="dev" />
         <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.zip" />
 
         <target name="main" depends="clean, resolve, compile-classes, build, dist">
