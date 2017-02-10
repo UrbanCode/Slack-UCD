@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2014, 2016.
+ * © Copyright IBM Corporation 2017.
  * This is licensed under the following license.
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
@@ -12,7 +12,7 @@ import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.methods.PostMethod
 import org.apache.commons.httpclient.methods.StringRequestEntity
 
-final airTool = new AirPluginTool(args[0], args[1])
+final def airTool = new AirPluginTool(args[0], args[1])
 
 /* Here we call getStepProperties() to get a Properties object that contains the step properties
 * provided by the user.
@@ -35,41 +35,41 @@ attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
 // JSON message composition
 def json = new JsonBuilder();
 try {
-	json {
-		channel slackChannel
-		username slackUsername
-		icon_emoji emoji
-		attachments attachmentJson.content
-	}
-	println "DEBUG:: JSON Payload"
-	println json.toPrettyString();
+    json {
+        channel slackChannel
+        username slackUsername
+        icon_emoji emoji
+        attachments attachmentJson.content
+    }
+    println "DEBUG:: JSON Payload"
+    println json.toPrettyString();
 } catch (Exception exception) {
-	println "ERROR:: setting path: ${e.message}"
-	System.exit(1)
+    println "ERROR:: setting path: ${e.message}"
+    System.exit(1)
 }
 
 // HTTP POST to Slack
 try{
-	def requestEntity = new StringRequestEntity(
-			json.toString(),
-			"application/json",
-			"UTF-8"
-	);
-	def http = new HttpClient();
-	def post = new PostMethod(webhook);
-	post.setRequestEntity(requestEntity);
+    def requestEntity = new StringRequestEntity(
+        json.toString(),
+        "application/json",
+    "UTF-8"
+    );
+    def http = new HttpClient();
+    def post = new PostMethod(webhook);
+    post.setRequestEntity(requestEntity);
 
-	def status = http.executeMethod(post);
+    def status = http.executeMethod(post);
 
-	if (status == 200){
-		println "Success: ${status}";
-		System.exit(0);;
-	} else {
-		println "Failure: ${status}"
-		System.exit(3);
-	}
+    if (status == 200){
+        println "Success: ${status}";
+        System.exit(0);;
+    } else {
+        println "Failure: ${status}"
+        System.exit(3);
+    }
 } catch (Exception e) {
-	println "ERROR:: Unable to set path: ${e.message}"
+    println "ERROR:: Unable to set path: ${e.message}"
     println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
-	System.exit(2)
+    System.exit(2)
 }
