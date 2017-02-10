@@ -4,7 +4,7 @@ rvm:
 install:
 - ant install-ivy -DfailIvy=false
 before_script:
-- export BUILD_LIFE=${BUILD_LIFE}.${TRAVIS_COMMIT:0:7}
+- export BUILD_LIFE=${TRAVIS_COMMIT:0:7}
 - ant run-tests
 script:
 - ant -DbuildLife=${BUILD_LIFE}

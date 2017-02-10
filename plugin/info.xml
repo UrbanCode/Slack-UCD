@@ -136,7 +136,6 @@
         2.1 - Description Updates and Invalid Exception Variable
 	  </release-note>
     <release-note plugin-version="3">
-	    Community GitHub Release
         3.0 - New Custom Slack Step
         3.1 - Added timestamp
         3.2 - Removed Command Helper
