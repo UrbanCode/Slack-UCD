@@ -18,6 +18,14 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 	your own changes to the plugin.
 
 ### History
+    Version 3
+        New Custom Slack Step
+        Added timestamp
+        Removed Command Helper
+        Fixed issues with the JSON that was built
+        Major build.xml revisions
+        Upgrade groovy-plugin-utils to v1.2
+
     Version 2
         Community GitHub Release
     Version 2.1
