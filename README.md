@@ -26,11 +26,12 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
         Major build.xml revisions
         Upgrade groovy-plugin-utils to v1.2
 
-    Version 2
-        Community GitHub Release
     Version 2.1
         Description Updates
         Added invalid Exception Variable
+
+    Version 2
+        Community GitHub Release
 
 ### How to build the plugin from eclipse client:
 
