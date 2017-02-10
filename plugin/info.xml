@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
-    © Copyright IBM Corporation 2016.
+    © Copyright IBM Corporation 2016, 2017.
     This is licensed under the following license.
     The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
     U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
@@ -17,7 +17,7 @@
   or share their use case to help grow your plugin's functionality.
   -->
 
-  <author name="Cai Cooper">
+  <author name="Cai Cooper and Tyson Lawrie">
     <organization>N/A</organization>
     <bio/>
   </author>
@@ -109,7 +109,7 @@
     <meta content="" name="keywords"/>
   </meta-html>
 
-  <release-version>2.1</release-version>
+  <release-version>#RELEASE_VERSION#</release-version>
 
   <release-notes>
     <!--
@@ -135,6 +135,12 @@
 	    Community GitHub Release
         2.1 - Description Updates and Invalid Exception Variable
 	  </release-note>
-
+    <release-note plugin-version="3">
+	    Community GitHub Release
+        3.0 - New Custom Slack Step
+        3.1 - Added timestamp
+        3.2 - Removed Command Helper
+        3.3 - Fixed issues with the JSON that was built
+	  </release-note>
   </release-notes>
 </pluginInfo>
