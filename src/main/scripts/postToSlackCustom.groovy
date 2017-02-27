@@ -30,13 +30,15 @@ final def slackAttachment = props['attachment'];
 
 slackChannels.eachLine {
  
-   def slackChannel = it
-
-   if (slackChannel == null || slackChannel.allWhitespace) {
+   if (it == null || it.allWhitespace) {
+      println "ERROR:: No slack channel provided"
       return
    }
-
+ 
+   def slackChannel = URLDecoder.decode(it, "UTF-8" );
+   
    if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
+      println "ERROR:: Invalid slack channel format passed. Must start with either # or @."
       return
    }
 
