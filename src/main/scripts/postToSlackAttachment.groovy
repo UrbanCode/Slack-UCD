@@ -25,7 +25,7 @@ final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
-slackChannels.eachLine { slackChannel ->
+slackChannels.each { slackChannel ->
     slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
     if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
         throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${slackChannel}'. Must start with either # or @.")
@@ -53,7 +53,9 @@ attachmentJson.attachments.each { attachment ->
         attachment.ts = currentTime
     }
 }
-slackChannels.eachLine { slackChannel ->
+
+int countFails = 0
+slackChannels.each { slackChannel ->
     // JSON message composition
     def json = new JsonBuilder();
     try {
@@ -66,8 +68,7 @@ slackChannels.eachLine { slackChannel ->
         println "DEBUG:: JSON Payload"
         println json.toPrettyString();
     } catch (Exception exception) {
-        println "ERROR:: setting path: ${exception.message}"
-        System.exit(1)
+        throw new Exception("ERROR:: setting path: ${exception.message}")
     }
 
     // HTTP POST to Slack
@@ -84,11 +85,10 @@ slackChannels.eachLine { slackChannel ->
         def status = http.executeMethod(post);
 
         if (status == 200){
-            println "Success: ${status}";
-            System.exit(0);
+            println "${status} Success at '${slackChannel}'";
         } else {
-            println "Failure: ${status}"
-            System.exit(3);
+            println "${status} Failure at '${slackChannel}'"
+            countFails++
         }
     } catch (Exception e) {
         println "ERROR:: Unable to set path: ${e.message}"
@@ -96,7 +96,10 @@ slackChannels.eachLine { slackChannel ->
         System.exit(2)
     }
 }
-
+if (countFails > 0) {
+    println "ERROR:: One of the messages failed to send. View the above logs to determine the source."
+    System.exit(1)
+}
 void printSampleAttachmentPayload() {
     println "==== Sample Attachment JSON ===="
     println "{"
