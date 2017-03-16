@@ -20,10 +20,17 @@ final def props = airTool.getStepProperties()
 
 // properties
 final def webhook = props['webhook'];
-final def slackChannel = props['channel'];
+final def slackChannels = props['channels'].split(",|\n")*.trim() - "";
 final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
+
+slackChannels.eachLine { slackChannel ->
+    slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
+    if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
+        throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${slackChannel}'. Must start with either # or @.")
+    }
+}
 
 //Convert attachment input to be ArrayList for JSONBuilder
 def attachmentJson = {}
@@ -39,53 +46,55 @@ if (!attachmentJson.attachments) {
     printSampleAttachmentPayload()
     throw new RuntimeException("ERROR:: Unable to identify an 'attachments' ID. Follow the above sample JSON payload.")
 }
+
 String currentTime = System.currentTimeMillis()/1000
 attachmentJson.attachments.each { attachment ->
     if (!attachment.ts) {
         attachment.ts = currentTime
     }
 }
-
-// JSON message composition
-def json = new JsonBuilder();
-try {
-    json {
-        channel slackChannel
-        username slackUsername
-        icon_emoji emoji
-        attachments attachmentJson.attachments
+slackChannels.eachLine { slackChannel ->
+    // JSON message composition
+    def json = new JsonBuilder();
+    try {
+        json {
+            channel slackChannel
+            username slackUsername
+            icon_emoji emoji
+            attachments attachmentJson.attachments
+        }
+        println "DEBUG:: JSON Payload"
+        println json.toPrettyString();
+    } catch (Exception exception) {
+        println "ERROR:: setting path: ${exception.message}"
+        System.exit(1)
     }
-    println "DEBUG:: JSON Payload"
-    println json.toPrettyString();
-} catch (Exception exception) {
-    println "ERROR:: setting path: ${exception.message}"
-    System.exit(1)
-}
 
-// HTTP POST to Slack
-try{
-    def requestEntity = new StringRequestEntity(
-        json.toString(),
-        "application/json",
-    "UTF-8"
-    );
-    def http = new HttpClient();
-    def post = new PostMethod(webhook);
-    post.setRequestEntity(requestEntity);
+    // HTTP POST to Slack
+    try{
+        def requestEntity = new StringRequestEntity(
+            json.toString(),
+            "application/json",
+        "UTF-8"
+        );
+        def http = new HttpClient();
+        def post = new PostMethod(webhook);
+        post.setRequestEntity(requestEntity);
 
-    def status = http.executeMethod(post);
+        def status = http.executeMethod(post);
 
-    if (status == 200){
-        println "Success: ${status}";
-        System.exit(0);
-    } else {
-        println "Failure: ${status}"
-        System.exit(3);
+        if (status == 200){
+            println "Success: ${status}";
+            System.exit(0);
+        } else {
+            println "Failure: ${status}"
+            System.exit(3);
+        }
+    } catch (Exception e) {
+        println "ERROR:: Unable to set path: ${e.message}"
+        println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
+        System.exit(2)
     }
-} catch (Exception e) {
-    println "ERROR:: Unable to set path: ${e.message}"
-    println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
-    System.exit(2)
 }
 
 void printSampleAttachmentPayload() {
