@@ -10,6 +10,9 @@
   <!-- The purpose of plugin.xml is to provide upgrade paths when the plugin version is changed.
        If the upgrade paths are specified correctly, users will be upgraded to the new version
        without interruption. -->
-   <migrate to-version="3">
-   </migrate>
+    <migrate to-version="3">
+    </migrate>
+    <migrate to-version="4">
+        <migrate-command name="Post Attachment Notification to Slack" old="Post Custom Notification to Slack"/>
+    </migrate>
 </plugin-upgrade>

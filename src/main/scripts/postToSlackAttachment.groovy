@@ -1,9 +1,8 @@
 /**
- * © Copyright IBM Corporation 2017.
+ * ? Copyright IBM Corporation 2017.
  * This is licensed under the following license.
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
- * @author cooperc
  */
 import com.urbancode.air.AirPluginTool;
 import groovy.json.JsonBuilder;
@@ -27,10 +26,25 @@ final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
 //Convert attachment input to be ArrayList for JSONBuilder
-def slurped = new JsonSlurper().parseText(slackAttachment)
-def attachmentJson = new JsonBuilder(slurped)
+def attachmentJson = {}
+try {
+    attachmentJson = new JsonSlurper().parseText(slackAttachment)
+}
+catch (Exception e) {
+    printSampleAttachmentPayload()
+    throw new RuntimeException("ERROR:: Unable to parse the Attachment Payload as JSON. Follow the above sample JSON payload.\n${e.message}")
+}
 
-attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
+if (!attachmentJson.attachments) {
+    printSampleAttachmentPayload()
+    throw new RuntimeException("ERROR:: Unable to identify an 'attachments' ID. Follow the above sample JSON payload.")
+}
+String currentTime = System.currentTimeMillis()/1000
+attachmentJson.attachments.each { attachment ->
+    if (!attachment.ts) {
+        attachment.ts = currentTime
+    }
+}
 
 // JSON message composition
 def json = new JsonBuilder();
@@ -39,12 +53,12 @@ try {
         channel slackChannel
         username slackUsername
         icon_emoji emoji
-        attachments attachmentJson.content
+        attachments attachmentJson.attachments
     }
     println "DEBUG:: JSON Payload"
     println json.toPrettyString();
 } catch (Exception exception) {
-    println "ERROR:: setting path: ${e.message}"
+    println "ERROR:: setting path: ${exception.message}"
     System.exit(1)
 }
 
@@ -63,7 +77,7 @@ try{
 
     if (status == 200){
         println "Success: ${status}";
-        System.exit(0);;
+        System.exit(0);
     } else {
         println "Failure: ${status}"
         System.exit(3);
@@ -72,4 +86,20 @@ try{
     println "ERROR:: Unable to set path: ${e.message}"
     println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
     System.exit(2)
+}
+
+void printSampleAttachmentPayload() {
+    println "==== Sample Attachment JSON ===="
+    println "{"
+    println "   \"attachments\": ["
+    println "       {"
+    println "           \"title\": \"IBM UrbanCode Developer Community\","
+    println "           \"title_link\": \"https://developer.ibm.com/urbancode/plugins/development-community/\","
+    println "           \"text\": \"Learn about developing community plugins!\","
+    println "           \"color\": \"#36a64f\","
+    println "           \"footer\": \"Slack API\""
+    println "       }"
+    println "   ]"
+    println "}"
+    println "================================"
 }

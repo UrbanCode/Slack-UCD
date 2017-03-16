@@ -8,7 +8,7 @@
 
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <header>
-    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="3"/>
+    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="4"/>
     <description>
        Plugin for sending notifications to Slack.
 	</description>
@@ -58,7 +58,7 @@
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
   </step-type>
-  <step-type name="Post Custom Notification to Slack">
+  <step-type name="Post Attachment Notification to Slack">
     <description>
       Send a notification to a Slack channel.
 	</description>
@@ -76,7 +76,7 @@
         <property-ui default-value=":thumbsup:" description="The list of emoji supported are taken from https://github.com/iamcal/emoji-data ." label="Emoji Icon" type="textBox"/>
       </property>
       <property name="attachment" required="true">
-        <property-ui description="The payload value for adding to the attachment" label="Attachment Payload" type="textAreaBox"/>
+        <property-ui description="The Attachment JSON Payload to generate the Slack message." label="Attachment Payload" type="textAreaBox"/>
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -90,7 +90,7 @@
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
       <arg path="classes:lib/commons-httpclient-3.1.jar:lib/gson-2.2.4.jar:lib/groovy-json-2.4.0.jar:lib/commons-codec-1.2.jar:lib/commons-logging-1.1.3.jar:lib/groovy-plugin-utils-1.2.jar"/>
-      <arg file="postToSlackCustom.groovy"/>
+      <arg file="postToSlackAttachment.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
