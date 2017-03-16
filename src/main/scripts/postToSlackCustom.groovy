@@ -26,14 +26,14 @@ final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
-slackChannels.eachLine { channel ->
-   channel = URLDecoder.decode(channel, "UTF-8" );
-   if (!channel.startsWith("@") && !channel.startsWith("#")) {
-      throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${channel}'. Must start with either # or @.")
+slackChannels.eachLine { slackChannel ->
+   slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
+   if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
+      throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${slackChannel}'. Must start with either # or @.")
    }
 }
 
-slackChannels.eachLine {
+slackChannels.eachLine { slackChannel ->
    def slurped = new JsonSlurper().parseText(slackAttachment)
    def attachmentJson = new JsonBuilder(slurped)
 
