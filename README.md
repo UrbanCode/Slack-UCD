@@ -18,20 +18,25 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 	your own changes to the plugin.
 
 ### History
+    Version 4
+        - Send Slack Attachment message to multiple channels.
+        - Changed the Post Custom Notification to Slack step name to Post Attachment Notification to Slack.
+        - The Attachment Payload must now follow the exact JSON paylod for normal Attachment messages.
+        - Various exception handling.
     Version 3
-        New Custom Slack Step
-        Added timestamp
-        Removed Command Helper
-        Fixed issues with the JSON that was built
-        Major build.xml revisions
-        Upgrade groovy-plugin-utils to v1.2
+        - New Custom Slack Step
+        - Added timestamp
+        - Removed Command Helper
+        - Fixed issues with the JSON that was built
+        - Major build.xml revisions
+        - Upgrade groovy-plugin-utils to v1.2
 
     Version 2.1
-        Description Updates
-        Added invalid Exception Variable
+        - Description Updates
+        - Added invalid Exception Variable
 
     Version 2
-        Community GitHub Release
+        - Community GitHub Release
 
 ### How to build the plugin from eclipse client:
 
