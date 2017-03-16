@@ -10,6 +10,13 @@
   <!-- The purpose of plugin.xml is to provide upgrade paths when the plugin version is changed.
        If the upgrade paths are specified correctly, users will be upgraded to the new version
        without interruption. -->
-   <migrate to-version="3">
-   </migrate>
+    <migrate to-version="3">
+    </migrate>
+    <migrate to-version ="4">
+        <migrate-command name="Post Custom Notification to Slack">
+            <migrate-properties>
+                <migrate-property name="channels" old="channel" default="" />
+            </migrate-properties>
+        </migrate-command>
+    </migrate>
 </plugin-upgrade>

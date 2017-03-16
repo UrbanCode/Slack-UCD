@@ -21,35 +21,44 @@ final def props = airTool.getStepProperties()
 
 // properties
 final def webhook = props['webhook'];
-final def slackChannel = props['channel'];
+final def slackChannels = props['channels'].split(",|\n")*.trim() - "";
 final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
-//Convert attachment input to be ArrayList for JSONBuilder
-def slurped = new JsonSlurper().parseText(slackAttachment)
-def attachmentJson = new JsonBuilder(slurped)
+slackChannels.eachLine { slackChannel ->
+   slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
+   if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
+      throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${slackChannel}'. Must start with either # or @.")
+   }
+}
 
-attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
+slackChannels.eachLine { slackChannel ->
+   def slurped = new JsonSlurper().parseText(slackAttachment)
+   def attachmentJson = new JsonBuilder(slurped)
 
-// JSON message composition
-def json = new JsonBuilder();
-try {
-    json {
+   attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
+
+   // JSON message composition
+   def json = new JsonBuilder();
+
+   try {
+
+     json {
         channel slackChannel
         username slackUsername
         icon_emoji emoji
         attachments attachmentJson.content
-    }
-    println "DEBUG:: JSON Payload"
-    println json.toPrettyString();
-} catch (Exception exception) {
+      }
+      println "DEBUG:: JSON Payload"
+      println json.toPrettyString();
+    } catch (Exception exception) {
     println "ERROR:: setting path: ${e.message}"
     System.exit(1)
-}
+ }
 
-// HTTP POST to Slack
-try{
+ // HTTP POST to Slack
+ try{
     def requestEntity = new StringRequestEntity(
         json.toString(),
         "application/json",
@@ -63,13 +72,13 @@ try{
 
     if (status == 200){
         println "Success: ${status}";
-        System.exit(0);;
     } else {
         println "Failure: ${status}"
         System.exit(3);
     }
-} catch (Exception e) {
-    println "ERROR:: Unable to set path: ${e.message}"
-    println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
-    System.exit(2)
+  } catch (Exception e) {
+     println "ERROR:: Unable to set path: ${e.message}"
+     println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
+     System.exit(2)
+  }
 }

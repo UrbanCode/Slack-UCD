@@ -8,7 +8,7 @@
 
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <header>
-    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="3"/>
+    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="4"/>
     <description>
        Plugin for sending notifications to Slack.
 	</description>
@@ -69,8 +69,8 @@
       <property name="username">
         <property-ui default-value="DevOps Bot" description="A custom name overriding the default defined in the webhook configuration" label="Username" type="textBox"/>
       </property>
-      <property name="channel" required="true">
-        <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channel." label="Channel" type="textBox"/>
+      <property name="channels" required="true">
+        <property-ui description="Your public channels or usernames within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channels. Separate each channel or username with a new line or comma." label="Channels" type="textAreaBox"/>
       </property>
       <property name="emoji" required="true">
         <property-ui default-value=":thumbsup:" description="The list of emoji supported are taken from https://github.com/iamcal/emoji-data ." label="Emoji Icon" type="textBox"/>
