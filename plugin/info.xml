@@ -140,9 +140,12 @@
         3.1 - Added timestamp
         3.2 - Removed Command Helper
         3.3 - Fixed issues with the JSON that was built
-    </release-note>
-    <release-note plugin-version="4">
+	  </release-note>
+      <release-note plugin-version="4">
         4.0 - Send Slack Attachment message to multiple channels.
-    </release-note>
+        4.1 - Changed the Post Custom Notification to Slack step name to Post Attachment Notification to Slack.
+            - The Attachment Payload must now follow the exact JSON paylod for normal Attachment messages.
+            - Various exception handling.
+	  </release-note>
   </release-notes>
 </pluginInfo>
