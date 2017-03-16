@@ -21,27 +21,19 @@ final def props = airTool.getStepProperties()
 
 // properties
 final def webhook = props['webhook'];
-final def slackChannels = props['channels'];
+final def slackChannels = props['channels'].split(",|\n")*.trim() - "";
 final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
 
-//Convert attachment input to be ArrayList for JSONBuilder
+slackChannels.eachLine { channel ->
+   channel = URLDecoder.decode(channel, "UTF-8" );
+   if (!channel.startsWith("@") && !channel.startsWith("#")) {
+      throw new RuntimeException("ERROR:: Invalid slack channel format passed: '${channel}'. Must start with either # or @.")
+   }
+}
 
 slackChannels.eachLine {
- 
-   if (it == null || it.allWhitespace) {
-      println "ERROR:: No slack channel provided"
-      return
-   }
- 
-   def slackChannel = URLDecoder.decode(it, "UTF-8" );
-   
-   if (!slackChannel.startsWith("@") && !slackChannel.startsWith("#")) {
-      println "ERROR:: Invalid slack channel format passed. Must start with either # or @."
-      return
-   }
-
    def slurped = new JsonSlurper().parseText(slackAttachment)
    def attachmentJson = new JsonBuilder(slurped)
 
@@ -90,6 +82,3 @@ slackChannels.eachLine {
      System.exit(2)
   }
 }
-
-
-System.exit(0);

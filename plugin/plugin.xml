@@ -70,7 +70,7 @@
         <property-ui default-value="DevOps Bot" description="A custom name overriding the default defined in the webhook configuration" label="Username" type="textBox"/>
       </property>
       <property name="channels" required="true">
-        <property-ui description="Your public channels within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channels." label="Channels" type="textAreaBox"/>
+        <property-ui description="Your public channels or usernames within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channels. Separate each channel or username with a new line or comma." label="Channels" type="textAreaBox"/>
       </property>
       <property name="emoji" required="true">
         <property-ui default-value=":thumbsup:" description="The list of emoji supported are taken from https://github.com/iamcal/emoji-data ." label="Emoji Icon" type="textBox"/>
