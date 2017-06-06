@@ -16,7 +16,39 @@
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency org="commons-codec" name="commons-codec" rev="1.2" transitive="false" conf="default->default"/>
         <!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
-        <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1" transitive="false" conf="default->default"/>
+        <!-- <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1" transitive="false" conf="default->default"/> -->
+        
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/http-builder -->
+		<dependency org="org.codehaus.groovy.modules.http-builder" name="http-builder" rev="0.7.2" transitive="false" conf="default->default">
+			<artifact name="http-builder" url="http://repo.spring.io/libs-release-remote/org/codehaus/groovy/modules/http-builder/http-builder/0.7.2/http-builder-0.7.2.jar"/>
+		</dependency>
+		
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.3" transitive="false" conf="default->default"/>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.6" transitive="false" conf="default->default"/>  
+		
+		<dependency org="net.sf.json-lib" name="json-lib" rev="2.4" transitive="false" conf="default->default">
+        	<artifact name="json-lib" url="http://repo1.maven.org/maven2/net/sf/json-lib/json-lib/2.4/json-lib-2.4-jdk15.jar"/>     
+    	</dependency>	
+    	
+    	<!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
+		<dependency org="xml-resolver" name="xml-resolver" rev="1.2" transitive="false" conf="default->default"/>
+		
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency org="commons-lang" name="commons-lang" rev="2.5" transitive="false" conf="default->default"/>
+		
+		<!-- https://mvnrepository.com/artifact/net.sf.ezmorph/ezmorph -->
+		<dependency org="net.sf.ezmorph" name="ezmorph" rev="1.0.6" transitive="false" conf="default->default"/>
+		
+		<!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+		<dependency org="commons-collections" name="commons-collections" rev="3.2.2" transitive="false" conf="default->default"/>
+		
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.9.3" transitive="false" conf="default->default"/>
+		
+		
+			       
         <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
         <dependency org="commons-logging" name="commons-logging" rev="1.1.3" transitive="false" conf="default->default"/>
         <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json -->

@@ -19,4 +19,19 @@
             </migrate-properties>
         </migrate-command>
     </migrate>
+    <migrate to-version ="10">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate>  
+    <migrate to-version ="11">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate>     
+    <migrate to-version ="12">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate>    
+    <migrate to-version ="13">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate>    
+    <migrate to-version ="14">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate>         
 </plugin-upgrade>

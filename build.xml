@@ -41,7 +41,7 @@
         <property name="plugin" value="Slack-UCD" />
         <xmlproperty file="${plugin.dir}/plugin.xml" collapseAttributes="true"/>
         <property name="version" value="${plugin.header.identifier.version}" />
-        <property name="buildLife" value="dev" />
+        <property name="buildLife" value="00" />
         <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.${buildLife}.zip" />
 
         <target name="main" depends="clean, resolve, compile-classes, build, dist">
