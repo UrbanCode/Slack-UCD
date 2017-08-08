@@ -8,11 +8,12 @@
 import com.urbancode.air.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 
-import groovy.json.JsonBuilder
+import groovy.json.JsonBuilder;
+import groovy.json.JsonSlurper;
 
-import org.apache.commons.httpclient.HttpClient
-import org.apache.commons.httpclient.methods.PostMethod
-import org.apache.commons.httpclient.methods.StringRequestEntity
+import groovyx.net.http.HTTPBuilder
+import static groovyx.net.http.ContentType.JSON
+import static groovyx.net.http.Method.POST
 
 final def workDir = new File('.').canonicalFile;
 final def props = new Properties();
@@ -79,28 +80,18 @@ try {
 	System.exit(1)
 }
 
-// HTTP POST to Slack
-try{
-	def requestEntity = new StringRequestEntity(
-			json.toString(),
-			"application/json",
-			"UTF-8"
-	);
-	def http = new HttpClient();
-	def post = new PostMethod(webhook);
-	post.setRequestEntity(requestEntity);
 
-	def status = http.executeMethod(post);
+println "DEBUG:: POST to Slack: " + webhook
+def http = new HTTPBuilder( webhook )
+http.ignoreSSLIssues()
+http.request (POST, JSON) { req ->
+	body = json.toPrettyString()
 
-	if (status == 200){
-		println "Success: ${status}";
-		System.exit(0);;
-	} else {
-		println "Failure: ${status}"
-		System.exit(3);
+	response.success = { resp ->
+	    println "SUCCESS: Message posted to Slack successfully: ${resp.statusLine}"
 	}
-} catch (Exception e) {
-	println "[Error] Unable to set path: ${e.message}"
-    println "[Possible Solution] Confirm the properties by running the Webhook with its associated JSON body in a REST Client."
-	System.exit(2)
+	response.failure = {  resp ->
+	    println "ERROR: Failed to post message to Slack: ${resp.statusLine}"
+	    System.exit(1)
+	}
 }
