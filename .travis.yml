@@ -24,7 +24,7 @@ deploy:
   api_key:
     secure: Stmi1EeQ6Zi+e7UKukSl6uNc96NmC1mcU7RHePW/CkIMma2o6Yq16rfPHVIEelCuBebHMx9BRJRtGUr/FK0N95oSFLY6F6rb7M9s1q27VTeoL38EkKWjp5k1+ijrjNW7wpP9557bxv+lNEk10sehZ7bHWa2v9ur5LK154ia2gWvz7BjoCVrxZVPvdj78mp8EEcgdCFxTNC7fwkUqPpkierc1GJMAXdxC3HKUcLx+WT3N5rBVBJ5jhG1jq5A1H0HjPUTphRzP7C+NMjSAk2wfRbs81jLW7IZVe/JVqtTEyX8DM/amhnl6PREpTmpSSkHUOYO/7tWlL8ibDHUDWvkhgT86KDDs9IdsU5S7/1xTdFRtrfqNReWFATiPTBuAAoMUEp2v4yYP6NbbONem6GxAIj7Zp4ThtGbmVdvp/Nv65rPVmrtmxvMwdXJXRs4zbVX5cAs7ToHOWaLgSYdNWXvZfQDQZPMZwbAVaZPPUXIwKqQW3qlW57bU6EDnYMSzB+7UkTD/5MlgBx3sAzGhGAfk4wirmUhL/FxzSlz5k1YM8aZnRZ8+ZkOR0FCKMydMrZ2JQhukV0WICSQWOX0FIh/UKn/+BTPaUNXVoYmeWXHvz7tm9DZUlf7Yx/x6W+KZWDbyhGOU5wSrOZu1QPa7KhnNN8PMRqiiTgeqZN7q6fxBens=
   file_glob: true
-  file: releases/*.zip
+  file: build/distributions/*.zip
   skip_cleanup: true
   on:
     tags: true
