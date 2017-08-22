@@ -109,7 +109,7 @@
     <meta content="" name="keywords"/>
   </meta-html>
 
-  <release-version>#RELEASE_VERSION#</release-version>
+  <release-version>@RELEASE_VERSION@</release-version>
 
   <release-notes>
     <!--
@@ -147,5 +147,9 @@
             - The Attachment Payload must now follow the exact JSON paylod for normal Attachment messages.
             - Various exception handling.
 	  </release-note>
+      <release-note plugin-version="5">
+          Fix z/OS IBM-1047 encoding error.
+          Removed unecessary jars.
+    </release-note>
   </release-notes>
 </pluginInfo>

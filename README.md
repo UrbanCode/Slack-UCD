@@ -18,6 +18,11 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 	your own changes to the plugin.
 
 ### History
+    Version 5
+        - Change from Ant/Ivy to Gradle build tool.
+        - Reorganized folder structure.
+        - Fix z/OS IBM-1047 encoding error.
+        - Removed unecessary jars.
     Version 4
         - Send Slack Attachment message to multiple channels.
         - Changed the Post Custom Notification to Slack step name to Post Attachment Notification to Slack.

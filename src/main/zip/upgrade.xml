@@ -19,4 +19,6 @@
             </migrate-properties>
         </migrate-command>
     </migrate>
+ <migrate to-version="5">
+ </migrate>
 </plugin-upgrade>

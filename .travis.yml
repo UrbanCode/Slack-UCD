@@ -1,18 +1,18 @@
 language: groovy
 rvm:
-- 1.8.8
+    - 1.8.8
 install:
-- ant install-ivy -DfailIvy=false
+    - gradle build
 before_script:
-- export BUILD_LIFE=${TRAVIS_COMMIT:0:7}
-- ant run-tests
+    - gradle test
+    - export VERSION=${TRAVIS_TAG}.${TRAVIS_COMMIT:0:7}
 script:
-- ant -DbuildLife=${BUILD_LIFE}
+    - gradle -PpluginVersion=${VERSION}
 jdk:
-- oraclejdk8
-- oraclejdk7
-- openjdk7
-- openjdk6
+    - oraclejdk8
+    - oraclejdk7
+    - openjdk7
+    - openjdk6
 notifications:
   slack:
     secure: ESakxB2xuKk6IaGw/jsb8HvGGxPCulqi3y+7g5g6VU+aeZtJyyGwiMVvn7kIsB0+kQd0f34IATwnr/eAtTvDCM4tc8dJzY0UkAdFfBxCcOYHHcmrXOqckCFxmKX7gUkQW0pBvDoBqcZ5Ye0WWtN1XUlJvvsec36mJgu8lajmWd4S/yC8liWokDe2yT39bvVObX96eiVEYpEK8UgA1I7sISNE06yle/g+RhKH9JahEexOke7+oxfOCwFSiqQ4OkgoWicNbujfI+yN5gUKjT0d5UziyBNAUeYQQs33k4RSaptuYXpszn75fdNS/b7NXS34Z+0M86ORmTLQmOTuSrjHpWmfkk33LfdPDvHSJy4a0if2Vczvj5NLu7vhGRfz4qDwzv60jK4gdyaAMyERgNNyAmxl3LNMixFTH1GlN4HYPlEBS1FDQUdvoxL2CkCSJSb5nOWnsY2+NwAfLnsQvBreDdr8X2+vX/1lan3TbZKkM/5mNsQLCT2jvKUGj4fbikPqPyoCKT5SZ4dCwAWf6/kBS/dZkBL7j27RLs466YWDsgp0PTBZvYpa5YO/Z+bM3VLsg+eWvyum/Xu2aATDNRp5Ap0jtjYz2zlqwrkcUCF+IKLrJdHBJ2GgnRZPbjDgzgv7mMO4vXOnP8HNShOgqwmYneicbDuR/HCFfIfFQrsdx8g=
