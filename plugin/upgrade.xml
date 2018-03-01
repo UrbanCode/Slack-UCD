@@ -33,5 +33,8 @@
     </migrate>    
     <migrate to-version ="14">
         <migrate-command name="Post Custom Notification to Slack" />
-    </migrate>         
+    </migrate>      
+    <migrate to-version ="16">
+        <migrate-command name="Post Custom Notification to Slack" />
+    </migrate> 
 </plugin-upgrade>

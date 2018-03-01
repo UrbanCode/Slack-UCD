@@ -10,18 +10,23 @@ import groovy.json.JsonBuilder;
 import groovy.json.JsonSlurper;
 
 import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.ContentType
+import groovyx.net.http.Method
+import groovyx.net.http.RESTClient
 import static groovyx.net.http.ContentType.JSON
 import static groovyx.net.http.Method.POST
 
-final def airTool = new AirPluginTool(args[0], args[1])
-
-final def props = airTool.getStepProperties()
+final def workDir = new File('.').canonicalFile
+final def pluginTool = new AirPluginTool(args[0], args[1])
+final def props = pluginTool.stepProperties
 
 final def webhook = props['webhook'];
 final def slackChannels = props['channels'].split(",|\n")*.trim() - "";
 final def slackUsername = props['username'];
 final def emoji = props['emoji'];
 final def slackAttachment = props['attachment'];
+final def slackProxyHost = props['slackProxyHost'];
+final def slackProxyPort = props['slackProxyPort'];
 
 slackChannels.each { slackChannel ->
   slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
@@ -58,6 +63,9 @@ slackChannels.each { slackChannel ->
   println "DEBUG:: POST to Slack: " + webhook
   def http = new HTTPBuilder( webhook )
   http.ignoreSSLIssues()
+  if (slackProxyHost != null && !slackProxyHost.isEmpty()) {
+  	http.setProxy(slackProxyHost, Integer.valueOf(slackProxyPort), 'http')                     
+  }
   http.request (POST, JSON) { req ->
     body = json.toPrettyString()
 
