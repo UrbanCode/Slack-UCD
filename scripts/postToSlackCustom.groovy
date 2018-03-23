@@ -43,11 +43,13 @@ slackChannels.each { slackChannel ->
   println "attachmentJson.content: " + attachmentJson.content
 
   attachmentJson.content[0].ts = "" + System.currentTimeMillis()/1000;
+  
+  def slackChannelDecoded = URLDecoder.decode(slackChannel, "UTF-8" );
 
   def json = new JsonBuilder();
   try {
     json {
-        channel slackChannel
+        channel slackChannelDecoded
         username slackUsername
         icon_emoji emoji
         attachments attachmentJson.content

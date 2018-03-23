@@ -105,9 +105,9 @@ public class CommandHelper {
     private def out = System.out
     boolean ignoreExitValue = false
 
-    // public CommandHelper(dir) {
-    //     pb = new ProcessBuilder(['echo'] as String[]).directory(dir)
-    // }
+    public CommandHelper(dir) {
+        pb = new ProcessBuilder(['echo'] as String[]).directory(dir)
+    }
 
     public CommandHelper(dir, customSpecialChars) {
         pb = new ProcessBuilder(['echo'] as String[]).directory(dir)

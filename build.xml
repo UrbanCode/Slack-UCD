@@ -20,7 +20,7 @@
 
 		<property name="project" value="" />
 
-		<property name="deployPluginArchiveName" value="releases/plugin-slack_v16.02.zip" />
+		<property name="deployPluginArchiveName" value="releases/plugin-slack_v16.04.zip" />
 		
 		<property name="src.dir" value="${basedir}/src" />
 		<property name="build.dir" value="${basedir}/build" />
