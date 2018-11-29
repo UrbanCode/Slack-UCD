@@ -2,12 +2,12 @@ language: groovy
 rvm:
     - 1.8.8
 install:
-    - gradle build
+    - gradlew build
 before_script:
-    - gradle test
+    - gradlew test
     - export VERSION=${TRAVIS_TAG}.${TRAVIS_COMMIT:0:7}
 script:
-    - gradle -PpluginVersion=${VERSION}
+    - gradlew -PpluginVersion=${VERSION}
 jdk:
     - oraclejdk8
     - oraclejdk7
