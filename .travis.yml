@@ -1,8 +1,6 @@
 language: groovy
 rvm:
     - 1.8.8
-before_install:
-    - chmod +x gradlew
 install:
     - ./gradlew build
 before_script:
