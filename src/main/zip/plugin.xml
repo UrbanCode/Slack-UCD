@@ -8,7 +8,7 @@
 
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <header>
-    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="5"/>
+    <identifier id="com.urbancode.air.plugin.slack" name="Slack" version="6"/>
     <description>
        Plugin for sending notifications to Slack.
 	</description>
@@ -19,8 +19,8 @@
       Send a notification to a Slack channel.
 	</description>
     <properties>
-      <property name="webhook" required="true">
-        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
+      <property name="oauthAccessToken" required="true">
+        <property-ui description="These tokens were automatically generated when you installed the app to your team. Example : xoxp-123456789021-121231435433-234243242244-02342243234234kj34j5hj345hkj3h45" label="OAuth Access Token" type="textBox"/>
       </property>
       <property name="channel" required="true">
         <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channel." label="Channel" type="textBox"/>
@@ -63,9 +63,9 @@
       Send a notification to a Slack channel.
 	</description>
     <properties>
-      <property name="webhook" required="true">
-        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
-      </property>
+      <property name="oauthAccessToken" required="true">
+        <property-ui description="These tokens were automatically generated when you installed the app to your team.  Example : xoxp-123456789021-121231435433-234243242244-02342243234234kj34j5hj345hkj3h45" label="OAuth Access Token" type="textBox"/>
+      </property>      
       <property name="username">
         <property-ui default-value="DevOps Bot" description="A custom name overriding the default defined in the webhook configuration" label="Username" type="textBox"/>
       </property>

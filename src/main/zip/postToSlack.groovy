@@ -5,6 +5,7 @@
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  * @author cooperc
  */
+import groovy.json.JsonSlurper;
 import com.urbancode.air.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 
@@ -26,7 +27,7 @@ catch (IOException e) {
 }
 
 // properties
-final def webhook = props['webhook'];
+final def oauthAccessToken = props['oauthAccessToken'];
 final def slackChannel = props['channel'];
 final def colour = props['colour'];
 final def emoji = props['emoji'];
@@ -86,17 +87,27 @@ try{
 			"application/json",
 			"UTF-8"
 	);
+    
+    def postUrl = "https://slack.com/api/chat.postMessage?token="+oauthAccessToken+"&channel="+slackChannel+"&text="+component
+    
 	def http = new HttpClient();
-	def post = new PostMethod(webhook);
-	post.setRequestEntity(requestEntity);
-
-	def status = http.executeMethod(post);
-
-	if (status == 200){
+	def post = new PostMethod(postUrl);
+    post.setRequestEntity(requestEntity);
+    
+    def status = http.executeMethod(post);
+    
+    def slurper = new JsonSlurper()
+    def jsonSlurper = slurper.parseText(post.getResponseBodyAsString())
+    
+	if (status == 200 && jsonSlurper.ok==true){
 		println "Success: ${status}";
-		System.exit(0);;
+		System.exit(0);
 	} else {
 		println "Failure: ${status}"
+        
+        //TODO - will create resource bundle to handle all errors with api. 
+        println "Error: ${jsonSlurper.error}"
+        println ""
 		System.exit(3);
 	}
 } catch (Exception e) {
