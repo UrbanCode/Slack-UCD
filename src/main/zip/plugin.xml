@@ -19,8 +19,8 @@
       Send a notification to a Slack channel.
 	</description>
     <properties>
-      <property name="oauthAccessToken" required="true">
-        <property-ui description="These tokens were automatically generated when you installed the app to your team. Example : xoxp-123456789021-121231435433-234243242244-02342243234234kj34j5hj345hkj3h45" label="OAuth Access Token" type="textBox"/>
+      <property name="webhook" required="true">
+        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
       </property>
       <property name="channel" required="true">
         <property-ui description="Your public channel within Slack where UrbanCode Deploy messages will be sent. The WebHook must have access to this channel." label="Channel" type="textBox"/>
@@ -58,14 +58,49 @@
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
   </step-type>
+    <step-type name="Post Notification to Slack using OAuth Token">
+    <description>Send a notification to a Slack channel using OAuth Token.</description>
+    <properties>
+      <property name="token" required="true">
+        <property-ui default-value="${p:resource/slack/authToken}" description="Auth token for user (secure)" label="Auth Token" type="secureBox"/>
+      </property>
+      <property name="channel" required="true">
+        <property-ui description="Channel to send message to. Can be an encoded ID, or a name." label="Channel" type="textBox"/>
+      </property>
+      <property name="text" required="true">
+        <property-ui default-value="${p:server.url}/#applicationProcessRequest/${p?:parentRequest.id}" description="Text of the message to send." label="Message" type="textAreaBox"/>
+      </property>
+      <property name="username">
+        <property-ui description="Name of bot. If you select Post as User, this field is ignored." label="Bot Name" type="textBox"/>
+      </property>
+      <property name="as_user">
+        <property-ui description="Select to post the message as the authenticated user instead of as a bot." label="Post as User" type="checkBox"/>
+      </property>
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/gson.jar:lib/commons-codec.jar:lib/commons-httpclient-3.1.jar:lib/commons-codec-1.2.jar"/>
+      <arg file="postMessageWithOauth.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
   <step-type name="Post Attachment Notification to Slack">
     <description>
       Send a notification to a Slack channel.
 	</description>
     <properties>
-      <property name="oauthAccessToken" required="true">
-        <property-ui description="These tokens were automatically generated when you installed the app to your team.  Example : xoxp-123456789021-121231435433-234243242244-02342243234234kj34j5hj345hkj3h45" label="OAuth Access Token" type="textBox"/>
-      </property>      
+      <property name="webhook" required="true">
+        <property-ui description="The Incoming WebHook URL that will accept external messages into Slack." label="Incoming WebHook" type="textBox"/>
+      </property>
       <property name="username">
         <property-ui default-value="DevOps Bot" description="A custom name overriding the default defined in the webhook configuration" label="Username" type="textBox"/>
       </property>

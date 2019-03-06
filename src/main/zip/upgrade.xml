@@ -22,15 +22,7 @@
  <migrate to-version="5">
  </migrate>
  <migrate to-version="6">
-        <migrate-command name="Post Notification to Slack">
-            <migrate-properties>
-                <migrate-property name="oauthAccessToken" />
-            </migrate-properties>
-        </migrate-command>
-        <migrate-command name="Post Attachment Notification to Slack">
-            <migrate-properties>
-                <migrate-property name="oauthAccessToken" />
-            </migrate-properties>
+        <migrate-command name="Post Notification to Slack using OAuth Token">
         </migrate-command> 
  </migrate>
 </plugin-upgrade>

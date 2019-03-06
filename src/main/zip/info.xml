@@ -152,7 +152,7 @@
           Removed unecessary jars.
     </release-note>
     <release-note plugin-version="6">
-          Plugin steps updated to use Slack's OAuth.
+          Added step - Post Notification to Slack using OAuth Token.
     </release-note>
     
   </release-notes>
