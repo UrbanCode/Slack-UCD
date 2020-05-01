@@ -18,6 +18,8 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 	your own changes to the plugin.
 
 ### History
+    Version 6
+        - Add Proxy properties
     Version 5
         - Change from Ant/Ivy to Gradle build tool.
         - Reorganized folder structure.
@@ -43,15 +45,9 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
     Version 2
         - Community GitHub Release
 
-### How to build the plugin from eclipse client:
-
-1. Expand the Groovy project that you checked-out from example template.
-2. Open build.xml file and execute it as an Ant Build operation (Run As -> Ant Build)
-3. The built plugin is located at releases/Slack-UCD-vdev.zip
-
 ### How to build the plugin from command line:
 
 1. Navigate to the base folder of the project through command line.
-2. Make sure that there is build.xml file there, and then execute 'ant' command.
-3. The built plugin is located at releases/Slack-UCD-vdev.zip
-Note: Edit the Build.xml to change the version 'dev' to a release number.
+2. Make sure that there is `build.gradle` file there, and then execute `./gradlew build -PpluginVersion=<VersionNumber>` command.
+3. The built plugin is located at `build/distributions/Slack-UCD-<VersionNumber>.zip`
+

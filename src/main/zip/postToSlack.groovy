@@ -11,6 +11,7 @@ import com.urbancode.air.CommandHelper;
 import groovy.json.JsonBuilder
 
 import org.apache.commons.httpclient.HttpClient
+import org.apache.commons.httpclient.HostConfiguration
 import org.apache.commons.httpclient.methods.PostMethod
 import org.apache.commons.httpclient.methods.StringRequestEntity
 
@@ -33,6 +34,8 @@ final def emoji = props['emoji'];
 final def environment = props['environment'];
 final def component = props['component'];
 final def version = props['version'];
+final def proxyHost = props['proxyhost'];
+final def proxyPort = props['proxyport'];
 
 def commandHelper = new CommandHelper(workDir);
 
@@ -87,6 +90,21 @@ try{
 			"UTF-8"
 	);
 	def http = new HttpClient();
+
+	// Set proxy if set
+	if(proxyHost != null && proxyHost.length() > 1) {
+
+		try {
+			def HostConfiguration hostConfiguration = http.getHostConfiguration();
+			hostConfiguration.setProxy(proxyHost, proxyPort.toInteger());
+			http.setHostConfiguration(hostConfiguration);
+		} catch(Exception e) {
+			println "[Error] Unable to set proxy: ${e.message}"
+    		println "[Possible Solution] Verify the proxyHost and proxyPort parameters. host=${proxyHost}, port=${proxyPort}"
+		}
+		
+	}
+
 	def post = new PostMethod(webhook);
 	post.setRequestEntity(requestEntity);
 

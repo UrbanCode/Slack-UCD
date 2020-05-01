@@ -177,3 +177,5 @@ String stripVersion(String fileNameWithVersion) {
     int end = fileNameWithVersion.lastIndexOf("-"); //assumes that: name-version.ext. Will not work with name-version-SNAPSHOT.ext
     return fileNameWithVersion.substring(0, end) + ext
 }
+
+build.finalizedBy distPlugin
