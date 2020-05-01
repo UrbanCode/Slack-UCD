@@ -40,6 +40,12 @@
       <property name="version" required="true">
         <property-ui default-value="${p:version.name}" description="The version of the component deployed." hidden="true" label="Version" type="textBox"/>
       </property>
+      <property name="proxyhost" required="false">
+        <property-ui description="Proxy Host for HTTP." label="Proxy Host" type="textBox"/>
+      </property>
+      <property name="proxyport" required="false">
+        <property-ui description="Proxy Port for HTTP." label="Proxy Port" type="textBox"/>
+      </property>
     </properties>
 
     <post-processing><![CDATA[
@@ -77,6 +83,12 @@
       </property>
       <property name="attachment" required="true">
         <property-ui description="The Attachment JSON Payload to generate the Slack message." label="Attachment Payload" type="textAreaBox"/>
+      </property>
+      <property name="proxyhost" required="false">
+        <property-ui description="Proxy Host for HTTP." label="Proxy Host" type="textBox"/>
+      </property>
+      <property name="proxyport" required="false">
+        <property-ui description="Proxy Port for HTTP." label="Proxy Port" type="textBox"/>
       </property>
     </properties>
     <post-processing><![CDATA[

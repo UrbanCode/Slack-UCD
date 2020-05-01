@@ -14,3 +14,6 @@
 /releases
 /build
 /lib
+
+# gradle
+gradle/

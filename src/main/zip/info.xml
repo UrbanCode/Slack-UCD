@@ -151,5 +151,8 @@
           Fix z/OS IBM-1047 encoding error.
           Removed unecessary jars.
     </release-note>
+      <release-note plugin-version="6">
+          Add Proxy properties
+    </release-note>
   </release-notes>
 </pluginInfo>
