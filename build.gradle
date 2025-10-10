@@ -60,17 +60,21 @@ repositories {
 
 dependencies {
     // groovy-plugin-utils pulls down groovy-all as a transitive dependency for the 'compile' configuration
-    compile 'com.ibm.urbancode.plugins:groovy-plugin-utils:+'
-    compile 'com.ibm.urbancode.util:i18n-scraper:+'
-    compile 'commons-codec:commons-codec:1.2'
-    compile 'commons-httpclient:commons-httpclient:3.1'
-    compile 'commons-logging:commons-logging:1.1.3'
+    implementation 'com.ibm.urbancode.plugins:groovy-plugin-utils:+'
+    implementation 'com.ibm.urbancode.util:i18n-scraper:+'
+    implementation 'commons-codec:commons-codec:1.2'
+    implementation 'commons-httpclient:commons-httpclient:3.1'
+    implementation 'commons-logging:commons-logging:1.1.3'
     //compile 'org.codehaus.groovy:groovy-json:2.4.0'
 
     // This compiles the i18n-scraper script
-    compile localGroovy()
-    testCompile 'junit:junit:4.11'
-    testCompile 'org.hamcrest:hamcrest-core:1.3'
+    implementation localGroovy()
+    testImplementation 'junit:junit:4.11'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+}
+
+configurations {
+    compileClasspath.extendsFrom implementation
 }
 
 sourceSets {
@@ -101,7 +105,7 @@ compileGroovy {
 task copyDeps(type: Copy) {
     into 'lib'
     copy {
-        from configurations.runtime
+        from configurations.runtimeClasspath
         include { target ->
             return target.file.path.contains("com.ibm.urbancode")
         }
@@ -111,7 +115,7 @@ task copyDeps(type: Copy) {
         }
     }
     copy {
-        from configurations.runtime
+        from configurations.runtimeClasspath
         exclude { target ->
             return target.file.path.contains("com.ibm.urbancode")
         }
@@ -155,9 +159,9 @@ task distPlugin(type: Zip, dependsOn: ['compileGroovy', 'gatherI18n']) {
         exclude 'META-INF', 'i18n-scraper.groovy'
     }
     if (pluginVersion) {
-        archiveName = "${pluginName}-v${pluginVersion}.zip"
+        archiveFileName = "${pluginName}-v${pluginVersion}.zip"
     } else {
-        archiveName = "${pluginName}-dev.zip"
+        archiveFileName = "${pluginName}-dev.zip"
     }
 }
 
@@ -165,12 +169,20 @@ task gatherI18n(type: JavaExec) {
     delete buildLocaleDir
     mkdir buildLocaleDir
 
-    main = 'i18n-scraper'
+    mainClass.set('i18n-scraper')
     args 'build/locale/en.properties'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task cleanAll(dependsOn: ['clean', 'cleanCopyDeps', 'cleanDistPlugin', 'cleanGatherI18n'])
+
+tasks.named("extractGPU") {
+    dependsOn("copyDeps")
+}
+
+tasks.named("copyi18n") {
+    dependsOn("copyDeps")
+}
 
 String stripVersion(String fileNameWithVersion) {
     String ext = fileNameWithVersion.substring(fileNameWithVersion.lastIndexOf("."),fileNameWithVersion.length())
