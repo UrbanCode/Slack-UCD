@@ -5,7 +5,6 @@
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  * @author cooperc
  */
-import com.urbancode.air.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 
 import groovy.json.JsonBuilder
@@ -14,9 +13,9 @@ import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.methods.PostMethod
 import org.apache.commons.httpclient.methods.StringRequestEntity
 
-final def workDir = new File('.').canonicalFile;
-final def props = new Properties();
-final def inputPropsFile = new File(args[0]);
+def workDir = new File('.').canonicalFile;
+def props = new Properties();
+def inputPropsFile = new File(args[0]);
 try {
     inputPropsStream = new FileInputStream(inputPropsFile);
     props.load(inputPropsStream);
@@ -26,13 +25,13 @@ catch (IOException e) {
 }
 
 // properties
-final def webhook = props['webhook'];
-final def slackChannel = props['channel'];
-final def colour = props['colour'];
-final def emoji = props['emoji'];
-final def environment = props['environment'];
-final def component = props['component'];
-final def version = props['version'];
+def webhook = props['webhook'];
+def slackChannel = props['channel'];
+def colour = props['colour'];
+def emoji = props['emoji'];
+def environment = props['environment'];
+def component = props['component'];
+def version = props['version'];
 
 def commandHelper = new CommandHelper(workDir);
 

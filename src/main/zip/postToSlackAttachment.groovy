@@ -4,26 +4,26 @@
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
-import com.urbancode.air.AirPluginTool;
+import com.urbancode.air.plugin.helpers.NewAirPluginTool;
 import groovy.json.JsonBuilder;
 import groovy.json.JsonSlurper;
 import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.methods.PostMethod
 import org.apache.commons.httpclient.methods.StringRequestEntity
 
-final def airTool = new AirPluginTool(args[0], args[1])
+def airTool = new NewAirPluginTool(args[0], args[1])
 
 /* Here we call getStepProperties() to get a Properties object that contains the step properties
 * provided by the user.
 */
-final def props = airTool.getStepProperties()
+def props = airTool.getStepProperties()
 
 // properties
-final def webhook = props['webhook'];
-final def slackChannels = props['channels'].split(",|\n")*.trim() - "";
-final def slackUsername = props['username'];
-final def emoji = props['emoji'];
-final def slackAttachment = props['attachment'];
+def webhook = props['webhook'];
+def slackChannels = props['channels'].split(",|\n")*.trim() - "";
+def slackUsername = props['username'];
+def emoji = props['emoji'];
+def slackAttachment = props['attachment'];
 
 slackChannels.each { slackChannel ->
     slackChannel = URLDecoder.decode(slackChannel, "UTF-8" );
