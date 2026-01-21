@@ -151,5 +151,9 @@
           Fix z/OS IBM-1047 encoding error.
           Removed unecessary jars.
     </release-note>
+    <release-note plugin-version="6">
+          Added step - Post Notification to Slack using OAuth Token.
+    </release-note>
+    
   </release-notes>
 </pluginInfo>
